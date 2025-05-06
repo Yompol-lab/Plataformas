@@ -5,14 +5,22 @@ public class Bullet : MonoBehaviour
     public float speed = 10f;
     public float lifeTime = 2f;
 
+    private Vector3 direction;
+
+    public void SetDirection(Vector3 dir)
+    {
+        direction = dir.normalized;
+    }
+
     void Start()
     {
-        Destroy(gameObject, lifeTime); 
+        Destroy(gameObject, lifeTime);
     }
 
     void Update()
     {
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
+        
+        transform.position += direction * speed * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider other)
@@ -20,11 +28,11 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Destroy(other.gameObject); 
-            Destroy(gameObject);      
+            Destroy(gameObject);       
         }
         else if (!other.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            Destroy(gameObject); 
         }
     }
 }
