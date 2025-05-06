@@ -4,8 +4,6 @@ public class PlayerMovement3D : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
-    public float wallJumpHorizontalForce = 5f;
-
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Transform wallCheckLeft;
@@ -39,7 +37,6 @@ public class PlayerMovement3D : MonoBehaviour
 
     void Jump()
     {
-        // Revisamos contacto con el suelo y paredes
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, groundLayer);
         onWallLeft = Physics.CheckSphere(wallCheckLeft.position, 0.2f, wallLayer);
         onWallRight = Physics.CheckSphere(wallCheckRight.position, 0.2f, wallLayer);
@@ -48,22 +45,19 @@ public class PlayerMovement3D : MonoBehaviour
         {
             if (isGrounded)
             {
-                // Salto normal desde el suelo
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
             else if (onWallLeft)
             {
-                // Salto desde pared izquierda (hacia la derecha)
-                Vector3 jumpDir = Vector3.up + Vector3.right;
+                Vector3 jumpDirection = Vector3.up + Vector3.right;
                 rb.linearVelocity = Vector3.zero;
-                rb.AddForce(jumpDir.normalized * jumpForce + Vector3.right * wallJumpHorizontalForce, ForceMode.Impulse);
+                rb.AddForce(jumpDirection.normalized * jumpForce, ForceMode.Impulse);
             }
             else if (onWallRight)
             {
-                // Salto desde pared derecha (hacia la izquierda)
-                Vector3 jumpDir = Vector3.up + Vector3.left;
+                Vector3 jumpDirection = Vector3.up + Vector3.left;
                 rb.linearVelocity = Vector3.zero;
-                rb.AddForce(jumpDir.normalized * jumpForce + Vector3.left * wallJumpHorizontalForce, ForceMode.Impulse);
+                rb.AddForce(jumpDirection.normalized * jumpForce, ForceMode.Impulse);
             }
         }
     }

@@ -21,7 +21,7 @@ public class MainMenu : MonoBehaviour
 
     public void VolverMenu()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Menu2");
     }
 
 }
