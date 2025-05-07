@@ -25,6 +25,7 @@ public class PlayerMovement3D : MonoBehaviour
     {
         Move();
         Jump();
+ 
     }
 
     void Move()
