@@ -21,20 +21,18 @@ public class PlayerShooting : MonoBehaviour
     {
         Vector3 direction = transform.localScale.x > 0 ? Vector3.right : Vector3.left;
 
-       
-        Quaternion rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up); 
-
-        if (direction == Vector3.left)
-        {
-            rotation = Quaternion.Euler(0, 90, 0); 
-        }
-
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, rotation);
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
 
         Bullet bulletScript = bullet.GetComponent<Bullet>();
         if (bulletScript != null)
         {
             bulletScript.SetDirection(direction);
         }
+
+       
+        Vector3 bulletScale = bullet.transform.localScale;
+        bulletScale.x = direction.x > 0 ? Mathf.Abs(bulletScale.x) : -Mathf.Abs(bulletScale.x);
+        bullet.transform.localScale = bulletScale;
     }
+
 }

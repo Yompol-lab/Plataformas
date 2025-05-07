@@ -34,8 +34,7 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Moriste");
-          
+            GameManager.Instance.LoseLife();
         }
     }
 }
